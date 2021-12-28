@@ -9,7 +9,7 @@ def wheel_spin():
 with open("words_alpha.txt") as words:
     word_list = words.read().split()
 
-print("Welcome to Wheel of Fortune!")
+print("---------- Welcome to Wheel of Fortune! ----------")
 
 player_overall = {1:0, 2:0, 3:0}
 vowels = "AEIOU"
@@ -34,11 +34,11 @@ while round < 3:
             if solved == True:
                 break
 
+            print("---------- Round " + str(round) + " ----------")
             print("-------- Player " + str(i) + " --------")
 
             print("Here is the word that needs to be guessed:")
             print(*current_word)
-            print(word)
 
             turn = True
             while turn == True:
@@ -77,11 +77,14 @@ while round < 3:
 
                     else: 
                         consonant_guess = input("Choose a consonant: ").upper()
+
+                        if consonant_guess in correct_guesses:
+                            print("You cannot guess the same consonant as one already on the board!")
                             
                         if consonant_guess in vowels:
                             print("That is a vowel, you must buy vowels!")
                             
-                        elif consonant_guess in word:
+                        elif consonant_guess in word and not correct_guesses:
                             correct_guesses.append(consonant_guess)
                             current_word = [letter if letter in correct_guesses else '_' for letter in letters]
                             print(*current_word)
@@ -144,7 +147,7 @@ while round < 3:
                                 print("Please input Y or N!")
                                 vowel = True
                             
-                        else:
+                        elif consonant_guess:
                             print("That letter is not in the word. Your turn is over!")
                             turn = False
 
@@ -152,6 +155,8 @@ while round < 3:
                     print("Please type 'W' or 'C'.")
 
 while round == 3:
+
+    print("---------- FINAL ROUND ----------")
     
     random_word = random.randrange(0,len(word_list))
     word = word_list.pop(random_word).upper()
@@ -162,7 +167,7 @@ while round == 3:
     final_player = max(player_overall, key=player_overall.get)
     final_player_bank = player_overall[final_player]
 
-    print("The player moving on to the final round is: " + str(final_player))
+    print("The player moving on to the final round is: Player " + str(final_player))
     print("The prize for winning the final round is an additional $10,000!")
 
     correct_guesses = ['R', 'S', 'T', 'L', 'N', 'E']
@@ -210,6 +215,7 @@ while round == 3:
             round +=1
 
         else:
-            print("You did not guess correctly, you win: $" + str(final_player_bank))
+            print("You did not guess correctly, the word was: " + word)
+            print("You win: $" + str(final_player_bank))
             guess +=1
             round +=1
