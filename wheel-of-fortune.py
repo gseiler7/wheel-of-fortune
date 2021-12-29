@@ -23,6 +23,7 @@ while round < 3:
     current_word = list('_' * len(word))
 
     correct_guesses = []
+    guessed_letters = []
 
     player_round = {1:0, 2:0, 3:0}
 
@@ -39,6 +40,7 @@ while round < 3:
 
             print("Here is the word that needs to be guessed:")
             print(*current_word)
+            print("These letters have already been guessed: " + str(guessed_letters))
 
             turn = True
             while turn == True:
@@ -47,11 +49,13 @@ while round < 3:
 
                 if main_prompt == "WORD" or main_prompt == "W":
                     word_guess = input("What is the word? ").upper()
+                    
 
                     if word_guess == word:
                         print("Correct! You have won the round.")
                         max_bank = max(player_round, key=player_round.get)
                         player_overall[max_bank] += player_round[max_bank]
+                        print("Scores: " + str(player_round))
                         round += 1
                         turn = False
                         solved = True
@@ -77,6 +81,7 @@ while round < 3:
 
                     else: 
                         consonant_guess = input("Choose a consonant: ").upper()
+                        guessed_letters.append(consonant_guess)
 
                         if consonant_guess in correct_guesses:
                             print("You cannot guess the same consonant as one already on the board!")
@@ -84,7 +89,7 @@ while round < 3:
                         if consonant_guess in vowels:
                             print("That is a vowel, you must buy vowels!")
                             
-                        elif consonant_guess in word and not correct_guesses:
+                        elif consonant_guess in word:
                             correct_guesses.append(consonant_guess)
                             current_word = [letter if letter in correct_guesses else '_' for letter in letters]
                             print(*current_word)
@@ -96,6 +101,7 @@ while round < 3:
                             if blank_counter == 0:
                                 max_bank = max(player_round, key=player_round.get)
                                 player_overall[max_bank] += player_round[max_bank]
+                                print("Scores: " + str(player_round))
                                 round += 1
                                 turn = False
                                 solved = True
@@ -109,6 +115,7 @@ while round < 3:
 
                                     if player_round[i] >= 250:
                                         vowel_guess = input("Choose a vowel: ").upper()
+                                        guessed_letters.append(vowel_guess)
                                         player_round[i] -= 250
 
                                         if vowel_guess in word and vowels:
@@ -121,6 +128,7 @@ while round < 3:
                                             if blank_counter == 0:
                                                 max_bank = max(player_round, key=player_round.get)
                                                 player_overall[max_bank] += player_round[max_bank]
+                                                print("Scores: " + str(player_round))
                                                 round += 1
                                                 vowel = False
                                                 turn = False
