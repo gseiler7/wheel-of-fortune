@@ -1,5 +1,5 @@
 Wheel of Fortune - 
-This project is a simplified game based on the gameshow "Wheel of Fortune" on ABC, played by 3 players.
+This project is a simplified game based on the gameshow "Wheel of Fortune", played by 3 players.
 
 Motivation - 
 Created as an assessment for the Python Basics module of Genesis10's Dev10 program - Data Professional track.
